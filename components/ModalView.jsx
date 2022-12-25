@@ -131,11 +131,11 @@ export default function ModalView({ data }) {
                                         />
                                         <button
                                             onClick={closeModal}
-                                            className='absolute border-white top-5 right-5 rounded-full bg-black/50 p-2'
+                                            className='absolute border-white/60 top-5 right-5 md:top-10 md:right-10 rounded-full bg-black/50 p-1'
                                         >
-                                            <IoClose />
+                                            <IoClose className='text-white/60' />
                                         </button>
-                                        <div className='absolute bottom-10 flex w-full items-center justify-between px-10'>
+                                        <div className='absolute bottom-5 md:bottom-10 flex w-full items-center justify-between px-5 md:px-10'>
                                             <div>
                                                 <button className='px-4 focus:outline-none flex items-center py-1 bg-white text-black rounded-sm text-sm font-semibold'>
                                                     <FaPlay className='mr-2' />{' '}
@@ -173,7 +173,7 @@ export default function ModalView({ data }) {
                                                 </div>
                                             </div>
                                             <div className='flex flex-col gap-x-10 gap-y-4 font-light md:flex-row'>
-                                                <p className='w-5/6 text-sm md:text-md'>
+                                                <p className='w-5/6 text-sm md:text-md line-clamp-5'>
                                                     {data.hasOwnProperty(
                                                         'TMDB'
                                                     )
