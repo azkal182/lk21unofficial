@@ -84,7 +84,7 @@ function Watch() {
 
     useEffect(() => {
         fembed(params.get('id'))
-        // console.log(params)
+        // console.log(params.get('id'))
     }, [params])
 
     return (

@@ -7,6 +7,8 @@ import axios from "axios";
 import { HiOutlineVolumeOff, HiOutlineVolumeUp } from "react-icons/hi";
 import { FaPlay } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
+import Link from 'next/link';
+
 
 const ReactPlayer = dynamic(() => import("react-player/lazy"), {
  ssr: false,
@@ -18,6 +20,7 @@ export default function ModalView({ data }) {
  let [meta, setMeta] = useState([]);
  let [loadingMeta, setLoadingMeta] = useState(true);
  const [muted, setMuted] = useState(true);
+ const [play, setPlay] = useState('');
  const token = "243bd781b4261e4fade9058a64105c28";
  const getVideo = async (id) => {
   try {
@@ -27,8 +30,10 @@ export default function ModalView({ data }) {
    );
    // console.log(response.data)
    setMeta(response.data.results);
-   setGenres(response.data.results.genre);
    setLoadingMeta(false);
+   setGenres(response.data.results.genre);
+   setPlay(response.data.results.link_download.filter(link => link.item === 'Fembed')[0].link.replace('https://layarkacaxxi.icu/f/',''))
+   
 
    // const data = response.data.results.filter(
    //     (item) => item.type === 'Trailer'
@@ -152,9 +157,9 @@ export default function ModalView({ data }) {
           {!loadingMeta && (
            <div className="absolute bottom-5 md:bottom-10 flex w-full items-center justify-between px-5 md:px-10">
             <div>
-             <button className="px-4 focus:outline-none flex items-center py-1 bg-white text-black rounded-sm text-sm font-semibold">
+             <a href={`/watch/?id=${play}`} className="px-4 focus:outline-none flex items-center py-1 bg-white text-black rounded-sm text-sm font-semibold">
               <FaPlay className="mr-2" /> Play
-             </button>
+             </a>
             </div>
             <div>
              <button
