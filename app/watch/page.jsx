@@ -91,14 +91,14 @@ function Watch() {
                 )}
 
                 <iframe
-                    className='object-cover w-full aspect-[21/9]'
+                    className='object-cover w-full aspect-[21/9] h-64 md:h-80 lg:h-96'
                     src={embed ? embed : ''}
                     allowfullscreen=''
                     frameborder='0'
                 ></iframe>
             </div>
 
-            <div className='w-full max-w-5xl mx-auto flex items-center mt-4'>
+            <div className='w-full max-w-5xl mx-auto flex items-center justify-center mt-4'>
                 {data &&
                     data.map((item, i) => {
                         return (
