@@ -14,29 +14,35 @@ const ReactPlayer = dynamic(() => import('react-player/lazy'), {
 
 export default function ModalView({ data }) {
     let [isOpen, setIsOpen] = useState(false)
-    let [idMovie, setIdMovie] = useState('')
-    let [trailer, setTrailer] = useState('')
+    let [genres, setGenres] = useState('')
+    let [meta, setMeta] = useState([])
+    let [loadingMeta, setLoadingMeta] = useState(true)
     const [muted, setMuted] = useState(true)
     const token = '243bd781b4261e4fade9058a64105c28'
     const getVideo = async (id) => {
         try {
             let response = await axios(
-                `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${token}`
+                // `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${token}`
+                `https://encouraging-bat-sun-hat.cyclic.app/api/movie/lk21/show?id=${id}`
             )
+            // console.log(response.data)
+            setMeta(response.data.results)
+            setGenres(response.data.results.genre)
+            setLoadingMeta(false)
 
-            const data = response.data.results.filter(
-                (item) => item.type === 'Trailer'
-            )
-            const index = Math.floor(Math.random() * data.length)
-            const show = data.splice(index, 1)[0]
+            // const data = response.data.results.filter(
+            //     (item) => item.type === 'Trailer'
+            // )
+            // const index = Math.floor(Math.random() * data.length)
+            // const show = data.splice(index, 1)[0]
 
-            if (response.data.results.length > 1) {
-                console.log(show)
-                setTrailer(show.key)
-            } else {
-                setTrailer(response.data.results.key)
-                console.log(response.data.results)
-            }
+            // if (response.data.results.length > 1) {
+            //     console.log(show)
+            //     setTrailer(show.key)
+            // } else {
+            //     setTrailer(response.data.results.key)
+            //     console.log(response.data.results)
+            // }
 
             // setTrailer(response.data.results)
         } catch (error) {
@@ -58,7 +64,8 @@ export default function ModalView({ data }) {
 
     useEffect(() => {
         // getVideo()
-    }, [idMovie])
+        console.log(meta)
+    }, [meta])
 
     return (
         <>
@@ -71,7 +78,8 @@ export default function ModalView({ data }) {
             </button> */}
             <div
                 onClick={() => {
-                    openModal(data.TMDB ? data.TMDB.id : null)
+                    // openModal(data.TMDB ? data.TMDB.id : null)
+                    openModal(data.id)
                 }}
                 className='aspect-[2/3] group cursor-pointer'
             >
@@ -123,7 +131,7 @@ export default function ModalView({ data }) {
                                 <Dialog.Panel className='w-full bg-black max-w-xl transform overflow-hidden rounded-lg text-left align-middle shadow-xl transition-all'>
                                     <div className='player-wrapper relative'>
                                         <ReactPlayer
-                                            url={`https://www.youtube.com/watch?v=${trailer}`}
+                                            url={`${meta.trailer}`}
                                             className='react-player'
                                             playing
                                             width='100%'
@@ -161,32 +169,26 @@ export default function ModalView({ data }) {
                                                     Match
                                                 </p>
                                                 <div className='font-light'>
-                                                    {data.hasOwnProperty(
-                                                        'TMDB'
-                                                    )
-                                                        ? data.TMDB
-                                                              .release_date
-                                                        : ''}
+                                                    {data.release}
                                                 </div>
                                                 <div className='flex-h-4 items-center justify-center rounded border border-white/40 px-1.5 text-xs'>
                                                     {data.quality}
                                                 </div>
+                                                <div className='flex-h-4 items-center justify-center rounded bg-blue-700 text-white px-1.5 text-xs'>
+                                                    {meta.quality}
+                                                </div>
                                             </div>
                                             <div className='flex flex-col gap-x-10 gap-y-4 font-light md:flex-row'>
                                                 <p className='w-5/6 text-sm md:text-md line-clamp-5'>
-                                                    {data.hasOwnProperty(
-                                                        'TMDB'
-                                                    )
-                                                        ? data.TMDB
-                                                              .overview
-                                                        : ''}
+                                                    {meta.overview}
                                                 </p>
-                                                <div className='flex flex-col space-y-3 text-'>
+                                                <div className='flex flex-col space-y-3 text-sm'>
                                                     <div>
                                                         <span className='text-[gray]'>
                                                             Genres:
                                                         </span>
-                                                        action
+
+                                                        {` ${genres}`}
                                                     </div>
                                                 </div>
                                             </div>
