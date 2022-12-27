@@ -1,14 +1,41 @@
 'use client'
+
 import React, { useEffect, useState } from 'react'
 const https = require('https')
 import axios from 'axios'
 
-import useSWR from 'swr'
 export default function Page() {
-    const [embed, setEmbed] = useState([])
-
+    const [embed, setEmbed] = useState('')
+    const [getVideo, setGetVideo] = useState(false)
+    const [data, setData] = useState('')
     const [con, setCon] = useState(false)
-    const handleClick = () => {
+    useEffect(() => {
+        // fembed("https://layarkacaxxi.icu/f/l-pg1unggyjmm4m/0ef0f83bccab54abaea2e07686731ce4");
+
+        // const cancelToken = axios.CancelToken.source()
+
+        {
+            /*
+  axios.get('https://fvs.io/redirector?token=UWxUK29BWlBBZzJMakpJcDZLb0o1UmVlWTJNU2g2N3lCUXBCemNLV3k4QlRRSnl6OVNSanlwWHNIQjdIM1BPYnI2ZStHeWczLzJzZDYyWEIzUWJPekNCeU8xajQ0RXpFVHpPbkZ5eGtPN2JSRjh6dkx4K1ZRQVRCN2hyNzlMRURUUk5yRWFsdmVBaXVPd3BMSjFtSmJPMEJ2UENDTjZ1MnpRY3g6UllZVFJhdkhhV21vZGdSK3VxaTA2QT09rCEj')
+  .then(response => {
+    console.log(response.url)
+
+    window.stop()
+ // const url = response.url
+    //console.log(url)
+   // controller.abort()
+    //axios.cancel()
+  })
+  .catch(error => {
+    console.log(error);
+  });
+  */
+        }
+    }, [])
+    const url =
+        'https://fvs.io/redirector?token=UWxUK29BWlBBZzJMakpJcDZLb0o1UmVlWTJNU2g2N3lCUXBCemNLV3k4QlRRSnl6OVNSanlwWHNIQjdIM1BPYnI2ZStHeWczLzJzZDYyWEIzUWJPekNCeU8xajQ0RXpFVHpPbkZ5eGtPN2JSRjh6dkx4K1ZRQVRCN2hyNzlMRURUUk5yRWFsdmVBaXVPd3BMSjFtSmJPMEJ2UENDTjZ1MnpRY3g6UllZVFJhdkhhV21vZGdSK3VxaTA2QT09rCEj'
+    const handleClick = (link) => {
+        setGetVideo(true)
         // setup AbortController
         //const controller = new AbortController();
         // signal to pass to fetch
@@ -17,12 +44,14 @@ export default function Page() {
         const { signal } = fetchController
         let cekk = setTimeout(() => {
             fetchController.abort()
-        }, 9000)
-        fetch(url, { signal })
+        }, 10000)
+        fetch(link, { signal })
             .then((resp) => {
                 console.log('oke')
                 alert(resp.url)
+                setEmbed(resp.url)
                 setCon(true)
+                setGetVideo(false)
                 //controller.abort()
                 fetchController.abort()
             })
@@ -74,18 +103,24 @@ export default function Page() {
                 return file
             })
 
-        let file = await getFile(data)
+        {
+            /*
+   let file = await getFile(data);
 
-        for (var i = 0; i < meta.length; ++i) {
-            if (meta[i]['label'] === file[i]['label']) {
-                meta[i]['file'] = file[i]['file']
-            }
+   for (var i = 0; i < meta.length; ++i) {
+    if (meta[i]["label"] === file[i]["label"]) {
+     meta[i]["file"] = file[i]["file"];
+    }
+   }
+
+   */
         }
         //Logger.info(meta)
         //return meta
-        alert(meta)
+        alert(JSON.stringify(meta))
+
         //console.log(meta);
-        //setEmbed(meta)
+        setData(meta)
     }
 
     async function getFile(data) {
@@ -141,18 +176,44 @@ export default function Page() {
 
     return (
         <>
-            <div>
-                {/*
-    <Iframe url="https://www987.ff-02.com/token=EfrZ62B-RA8ZQwwvi1lmJw/1672067285/140.213.0.0/176/6/63/f9afe1c8cf443d2905e0318adfd25636-480p.mp4" width="560" height="315" frameborder="0" allowfullscreen="true" />
-    */}
-                {JSON.stringify(embed)}
-            </div>
             <button onClick={handleClick}> Download</button>
-            <button onClick={handleStop}>ddStop </button>
 
             <button onClick={getLink}>getLink</button>
 
-            <h1>{con ? 'con' : 'discon'} </h1>
+            <div className='video-container bg-blue-600'>
+                {getVideo && <h1> geting video ...</h1>}
+                {embed && (
+                    <iframe
+                        src={embed}
+                        height='315'
+                        width='560'
+                        allowfullscreen=''
+                        frameborder='0'
+                    ></iframe>
+                )}
+            </div>
+
+            {/*
+{data ?? data.map((item) => {
+return ( <button className="px-4 py-y bg-green-600" onClick={()=> {handleClick()}}>{item.label}</button>)}) : <h1 > tidak ada </h1>}
+
+ */}
+            {data &&
+                data.map((item, i) => {
+                    return (
+                        <button
+                            key={i}
+                            className='px-4 py-y bg-green-600'
+                            onClick={() => {
+                                handleClick(item.file)
+                            }}
+                        >
+                            {item.label}
+                        </button>
+                    )
+                })}
+
+            {data && <h1> ada </h1>}
         </>
     )
 }
