@@ -11,6 +11,10 @@ const nextConfig = {
         hostname: '**.indexmovies.xyz',
       },
       {
+        protocol: 'http',
+        hostname: '**.indexmovies.xyz',
+      },
+      {
         protocol: 'https',
         hostname: 'image.tmdb.org',
       },

@@ -11,9 +11,6 @@ function Watch() {
     console.log(params.get('id'))
 
     async function fembed(query) {
-        // const ip = request.ip()
-        // Logger.warning(ip)
-        //let query = request.input('url')
         const config = {
             headers: {
                 'user-agent':
@@ -64,11 +61,7 @@ function Watch() {
         }, 10000)
         fetch(`${link}`, { signal })
             .then((resp) => {
-                // console.log('oke')
-                // console.log(resp)
-                // alert(resp.url)
                 setEmbed(resp.url)
-                // setCon(true)
                 setGetVideo(false)
                 fetchController.abort()
             })
@@ -89,37 +82,38 @@ function Watch() {
 
     return (
         <div>
-            <div className='video-container bg-blue-600'>
+            <div className='w-full aspect-[21/9] h-64 md:h-80 lg:h-96 relative bg-green-700 max-w-5xl mx-auto'>
                 {getVideo && (
                     <div className='w-full text-center h-full place-content-center'>
                         {' '}
                         geting video ...
                     </div>
                 )}
-                {embed && (
-                    <iframe
-                        src={embed}
-                        height='315'
-                        width='560'
-                        allowfullscreen=''
-                        frameborder='0'
-                    ></iframe>
-                )}
+
+                <iframe
+                    className='object-cover w-full aspect-[21/9]'
+                    src={embed ? embed : ''}
+                    allowfullscreen=''
+                    frameborder='0'
+                ></iframe>
             </div>
-            {data &&
-                data.map((item, i) => {
-                    return (
-                        <button
-                            key={i}
-                            className='px-4 py-y bg-green-600'
-                            onClick={() => {
-                                handleClick(item.file)
-                            }}
-                        >
-                            {item.label}
-                        </button>
-                    )
-                })}
+
+            <div className='w-full max-w-5xl mx-auto flex items-center mt-4'>
+                {data &&
+                    data.map((item, i) => {
+                        return (
+                            <button
+                                key={i}
+                                className='px-4 py-1 bg-blue-700 mx-2 rounded'
+                                onClick={() => {
+                                    handleClick(item.file)
+                                }}
+                            >
+                                {item.label}
+                            </button>
+                        )
+                    })}
+            </div>
         </div>
     )
 }
