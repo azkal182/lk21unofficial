@@ -169,17 +169,17 @@ export default function ModalView({ data }) {
                                                     Match
                                                 </p>
                                                 <div className='font-light'>
-                                                    {data.release}
+                                                    {meta.release}
                                                 </div>
-                                                <div className='flex-h-4 items-center justify-center rounded border border-white/40 px-1.5 text-xs'>
+                                                <div className={`flex-h-4 items-center justify-center rounded border border-white/40 px-1.5 text-xs ${data.quality === 'HD' ? 'bg-blue-700' : data.quality === 'CAM' ? 'bg-red-600' : 'bg-blue-400'}`}>
                                                     {data.quality}
                                                 </div>
-                                                <div className='flex-h-4 items-center justify-center rounded bg-blue-700 text-white px-1.5 text-xs'>
+                                                <div className={`flex-h-4 items-center justify-center rounded text-white px-1.5 text-xs border border-white/40 ${meta.quality === 'BluRay' ? 'bg-blue-600' : meta.quality === 'WEBDL' ? 'bg-green-600' : meta.quality === 'TS' ? 'bg-red-600' : ''}`}>
                                                     {meta.quality}
-                                                </div>
+                                         </div>
                                             </div>
                                             <div className='flex flex-col gap-x-10 gap-y-4 font-light md:flex-row'>
-                                                <p className='w-5/6 text-sm md:text-md line-clamp-5'>
+                                                <p className='text-justify w-full md:w-5/6 text-sm md:text-md line-clamp-5'>
                                                     {meta.overview}
                                                 </p>
                                                 <div className='flex flex-col space-y-3 text-sm'>
