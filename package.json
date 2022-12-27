@@ -18,7 +18,8 @@
     "next": "13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-iframe": "^1.8.5"
+    "react-iframe": "^1.8.5",
+    "swr": "^2.0.0"
   },
   "devDependencies": {
     "@headlessui/react": "^1.7.7",

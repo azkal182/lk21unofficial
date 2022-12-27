@@ -12,7 +12,7 @@ async function Home() {
                 <div>
                     <h1 className='font-semibold text-lg'>Latest</h1>
                     <div className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4'>
-                        {populars.map((item, i) => {
+                        {populars.slice(0, 12).map((item, i) => {
                             return (
                                 <div key={i}>
                                     {/* <h1>{item.title}</h1> */}

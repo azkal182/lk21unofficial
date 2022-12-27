@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import Image from 'next/image'
 import { Fragment, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import axios from 'axios'
 import { HiOutlineVolumeOff, HiOutlineVolumeUp } from 'react-icons/hi'
 import { FaPlay } from 'react-icons/fa'
@@ -15,9 +16,11 @@ const ReactPlayer = dynamic(() => import('react-player/lazy'), {
 export default function ModalView({ data }) {
     let [isOpen, setIsOpen] = useState(false)
     let [genres, setGenres] = useState('')
+    let [casts, setCasts] = useState('')
     let [meta, setMeta] = useState([])
     let [loadingMeta, setLoadingMeta] = useState(true)
     const [muted, setMuted] = useState(true)
+    const [id, setId] = useState('')
     const token = '243bd781b4261e4fade9058a64105c28'
     const getVideo = async (id) => {
         try {
@@ -25,10 +28,18 @@ export default function ModalView({ data }) {
                 // `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${token}`
                 `https://encouraging-bat-sun-hat.cyclic.app/api/movie/lk21/show?id=${id}`
             )
-            // console.log(response.data)
+            // console.log(response.data.results)
             setMeta(response.data.results)
             setGenres(response.data.results.genre)
+            setCasts(response.data.results.cast)
             setLoadingMeta(false)
+
+            setId(
+                response.data.results.link_download[0].link.replace(
+                    /https:\/\/layarkacaxxi\.icu\/f\//,
+                    ''
+                )
+            )
 
             // const data = response.data.results.filter(
             //     (item) => item.type === 'Trailer'
@@ -51,6 +62,10 @@ export default function ModalView({ data }) {
         // return 'oke'
     }
 
+    function handleMute() {
+        setMuted(!muted)
+    }
+
     function closeModal() {
         setIsOpen(false)
     }
@@ -64,7 +79,7 @@ export default function ModalView({ data }) {
 
     useEffect(() => {
         // getVideo()
-        console.log(meta)
+        // console.log(meta)
     }, [meta])
 
     return (
@@ -134,24 +149,36 @@ export default function ModalView({ data }) {
                                             url={`${meta.trailer}`}
                                             className='react-player'
                                             playing
+                                            muted={muted}
                                             width='100%'
                                             height='100%'
                                         />
                                         <button
                                             onClick={closeModal}
-                                            className='absolute border-white/60 top-5 right-5 md:top-10 md:right-10 rounded-full bg-black/50 p-1'
+                                            className='absolute border-white/60 top-5 right-5 md:top-10 md:right-10 rounded-full bg-black/50 p-2'
                                         >
-                                            <IoClose className='text-white/60' />
+                                            <IoClose
+                                                className='text-white/60'
+                                                size={12}
+                                            />
                                         </button>
                                         <div className='absolute bottom-5 md:bottom-10 flex w-full items-center justify-between px-5 md:px-10'>
                                             <div>
-                                                <button className='px-4 focus:outline-none flex items-center py-1 bg-white text-black rounded-sm text-sm font-semibold'>
+                                                <Link
+                                                    href={`/watch?id=${id}`}
+                                                    className='px-4 focus:outline-none flex items-center py-1 bg-white text-black rounded-sm text-sm font-semibold'
+                                                >
                                                     <FaPlay className='mr-2' />{' '}
                                                     Play
-                                                </button>
+                                                </Link>
                                             </div>
                                             <div>
-                                                <button className='bg-black/50 focus:outline-none p-2 border rounded-full text-white'>
+                                                <button
+                                                    onClick={
+                                                        handleMute
+                                                    }
+                                                    className='bg-black/50 focus:outline-none p-2 border rounded-full text-white'
+                                                >
                                                     {muted ? (
                                                         <HiOutlineVolumeOff />
                                                     ) : (
@@ -171,14 +198,37 @@ export default function ModalView({ data }) {
                                                 <div className='font-light'>
                                                     {meta.release}
                                                 </div>
-                                                <div className={`flex-h-4 items-center justify-center rounded border border-white/40 px-1.5 text-xs ${data.quality === 'HD' ? 'bg-blue-700' : data.quality === 'CAM' ? 'bg-red-600' : 'bg-blue-400'}`}>
+                                                <div
+                                                    className={`flex-h-4 items-center justify-center rounded border border-white/40 px-1.5 text-xs ${
+                                                        data.quality ===
+                                                        'HD'
+                                                            ? 'bg-blue-700'
+                                                            : data.quality ===
+                                                              'CAM'
+                                                            ? 'bg-red-600'
+                                                            : 'bg-blue-400'
+                                                    }`}
+                                                >
                                                     {data.quality}
                                                 </div>
-                                                <div className={`flex-h-4 items-center justify-center rounded text-white px-1.5 text-xs border border-white/40 ${meta.quality === 'BluRay' ? 'bg-blue-600' : meta.quality === 'WEBDL' ? 'bg-green-600' : meta.quality === 'TS' ? 'bg-red-600' : ''}`}>
+                                                <div
+                                                    className={`flex-h-4 items-center justify-center rounded text-white px-1.5 text-xs border border-white/40 ${
+                                                        meta.quality ===
+                                                        'BluRay'
+                                                            ? 'bg-blue-600'
+                                                            : meta.quality ===
+                                                              'WEBDL'
+                                                            ? 'bg-green-600'
+                                                            : meta.quality ===
+                                                              'TS'
+                                                            ? 'bg-red-600'
+                                                            : ''
+                                                    }`}
+                                                >
                                                     {meta.quality}
-                                         </div>
+                                                </div>
                                             </div>
-                                            <div className='flex flex-col gap-x-10 gap-y-4 font-light md:flex-row'>
+                                            <div className='flex flex-col gap-x-6 gap-y-4 font-light md:flex-row'>
                                                 <p className='text-justify w-full md:w-5/6 text-sm md:text-md line-clamp-5'>
                                                     {meta.overview}
                                                 </p>
@@ -189,6 +239,20 @@ export default function ModalView({ data }) {
                                                         </span>
 
                                                         {` ${genres}`}
+                                                    </div>
+                                                    <div>
+                                                        <span className='text-[gray]'>
+                                                            Cast :
+                                                        </span>
+
+                                                        {` ${
+                                                            casts > 3
+                                                                ? casts.slice(
+                                                                      0,
+                                                                      3
+                                                                  )
+                                                                : casts
+                                                        }`}
                                                     </div>
                                                 </div>
                                             </div>

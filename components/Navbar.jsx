@@ -3,12 +3,16 @@ import Image from 'next/image'
 import logo from '../public/logo.png'
 import { HiOutlineSearch } from 'react-icons/hi'
 import { FiCommand } from 'react-icons/fi'
+import Link from 'next/link'
 function Navbar() {
     return (
         <>
             <div className='flex items-center justify-between py-3  px-4 lg:px-8 border-b border-slate-800'>
                 <div className='flex items-center gap-x-6'>
-                    <div className='logo  text-red-500 font-bold text-xl flex items-center gap-x-1'>
+                    <Link
+                        href='/'
+                        className='logo  text-red-500 font-bold text-xl flex items-center gap-x-1'
+                    >
                         <Image
                             src={logo}
                             alt='logo'
@@ -16,7 +20,7 @@ function Navbar() {
                             height={32}
                         />
                         Movie
-                    </div>
+                    </Link>
                     <div className='hidden md:flex items-center gap-x-4'>
                         <div>Home</div>
                         <div>Popular</div>
