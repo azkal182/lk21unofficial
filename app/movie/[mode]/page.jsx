@@ -18,7 +18,7 @@ async function page({ params }) {
                     {results.map((movie, i) => {
                         return (
                             <div className='w-full md:w-full ' key={i}>
-                                <ModalView data={movie} />
+                                <ModalView data={movie} type='movie' />
                             </div>
                         )
                     })}
