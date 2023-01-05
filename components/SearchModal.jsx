@@ -28,17 +28,17 @@ export default function SearchModal() {
 
     return (
         <>
-            <button
+            {/* <button
                 onClick={openModal}
                 className='lg:hidden focus:outline-none px-3 py-2 dark:bg-slate-700/90 border border-slate-400 dark:border-slate-500 rounded-md hover:bg-gray-800 dark:hover:bg-slate-600'
             >
                 <HiOutlineSearch size={20} />
-            </button>
+            </button> */}
             <div className='hidden lg:block'>
                 <button
                     type='button'
                     onClick={openModal}
-                    className='px-2 py-2 hover:bg-gray-800 focus:outline-none dark:bg-slate-700/90 dark:hover:bg-slate-600 border border-slate-400 dark:border-slate-500 text-sm rounded-md dark:text-slate-400 flex items-center gap-x-2'
+                    className='px-2 py-2 hover:bg-gray-900 focus:outline-none dark:bg-slate-700/90 dark:hover:bg-slate-600 border border-slate-400 dark:border-slate-500 text-sm rounded-md dark:text-slate-400 flex items-center gap-x-2'
                 >
                     <span>
                         <HiOutlineSearch size={18} />
@@ -51,11 +51,7 @@ export default function SearchModal() {
             </div>
 
             <Transition appear show={isOpen} as={Fragment}>
-                <Dialog
-                    as='div'
-                    className='relative z-10'
-                    onClose={closeModal}
-                >
+                <Dialog as='div' className='relative z-10' onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
                         enter='ease-out duration-300'

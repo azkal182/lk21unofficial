@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: black;
+    color: white;
+}
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.player-wrapper {
+    position: relative;
+    padding-top: 56.25%;
+}
+
+.react-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.nav-link:active {
+    color: yellow;
+}
+
+@keyframes spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    animation: spinner 0.6s linear infinite;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #a0aec0;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+}
+
+.spinner-lg {
+    animation: spinner 0.6s linear infinite;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #a0aec0;
+    border-radius: 50%;
+    width: 5em;
+    height: 5em;
+}

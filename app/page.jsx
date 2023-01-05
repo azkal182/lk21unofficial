@@ -1,72 +1,48 @@
 import Image from 'next/image'
-import React from 'react'
-import ModalView from '../components/ModalView'
+import { Inter } from '@next/font/google'
+import styles from './page.module.css'
+import Main from '../components/Main'
+import Row from '../components/Row'
+import requests from '../requests'
 
-async function Home() {
-    const latest = await getLatest()
-    const popular = await getPopular()
-    const latests = latest.results
-    const populars = popular.results
+const inter = Inter({ subsets: ['latin'] })
 
+export default function Home() {
     return (
         <>
-            <div className='container px-3 md:px-8 mx-auto'>
-                <div>
-                    <h1 className='font-semibold mb-2 text-lg'>
-                        Popular
-                    </h1>
-                    <div className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4'>
-                        {populars.slice(0, 12).map((item, i) => {
-                            return (
-                                <div key={i}>
-                                    <ModalView data={item} />
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-
-                <div className='mt-4'>
-                    <h1 className='font-semibold mb-2 text-lg'>
-                        Latest
-                    </h1>
-                    <div className='grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4'>
-                        {latests.slice(0, 12).map((item, i) => {
-                            return (
-                                <div key={i}>
-                                    <ModalView data={item} />
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-            </div>
+            {/*
+            <Main type='movie' />
+            */}
+            <Row
+                header='top movie today'
+                linkRequest={requests.topMovieToday}
+                type='movie'
+                mode='popular'
+            />
+            <Row
+                header='Popular'
+                linkRequest={requests.popular}
+                type='movie'
+                mode='popular'
+            />
+            <Row
+                header='Latest'
+                linkRequest={requests.latest}
+                type='movie'
+                mode='latest'
+            />
+            <Row
+                header='TV Latest'
+                linkRequest={requests.seriesLatest}
+                type='tv'
+                mode='latest'
+            />
+            <Row
+                header='TV Popular'
+                linkRequest={requests.seriesPopular}
+                type='tv'
+                mode='popular'
+            />
         </>
     )
-}
-
-export default Home
-
-async function getLatest() {
-    const res = await fetch(
-        'https://encouraging-bat-sun-hat.cyclic.app/api/movie/lk21/latest', { next: { revalidate: 43200 } }
-    )
-    if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error('Failed to fetch data')
-    }
-
-    return res.json()
-}
-
-async function getPopular() {
-    const res = await fetch(
-        'https://encouraging-bat-sun-hat.cyclic.app/api/movie/lk21/popular', { next: { revalidate: 43200 } }
-    )
-    if (!res.ok) {
-        // This will activate the closest `error.js` Error Boundary
-        throw new Error('Failed to fetch data')
-    }
-
-    return res.json()
 }

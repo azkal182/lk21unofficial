@@ -1,0 +1,17 @@
+const requests =  {
+    "topMovieToday":"https://tan-dead-meerkat.cyclic.app/api/v1/movie/top-today",
+    "popular":"https://tan-dead-meerkat.cyclic.app/api/v1/movie/popular",
+    "latest":"https://tan-dead-meerkat.cyclic.app/api/v1/movie/latest",
+   // "seriesLatest": "https://tan-dead-meerkat.cyclic.app/api/v1/tv/latest",
+    "seriesLatest": "https://movie-express.vercel.app/api/v2/tv/latest",
+   // "seriesPopular": "https://tan-dead-meerkat.cyclic.app/api/v1/tv/popular",
+    "seriesPopular": "https://movie-express.vercel.app/api/v2/tv/popular",
+   // "seriesKorea": "https://tan-dead-meerkat.cyclic.app/api/v1/tv/korea",
+    "seriesKorea": "https://movie-express.vercel.app/api/v2/tv/country/korea",
+    //"seriesMandarin": "https://tan-dead-meerkat.cyclic.app/api/v1/tv/mandarin",
+    "seriesMandarin": "https://movie-express.vercel.app/api/v2/tv/country/china",
+   // "seriesWest": "https://tan-dead-meerkat.cyclic.app/api/v1/tv/west"
+    "seriesWest": "https://movie-express.vercel.app/api/v2/tv/country/west"
+}
+
+export default requests
