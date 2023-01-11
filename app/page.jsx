@@ -49,7 +49,7 @@ export default Home
 
 async function getLatest() {
     const res = await fetch(
-        'https://encouraging-bat-sun-hat.cyclic.app/api/movie/lk21/latest'
+        'https://encouraging-bat-sun-hat.cyclic.app/api/movie/lk21/latest', { next: { revalidate: 43200 } }
     )
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
@@ -61,7 +61,7 @@ async function getLatest() {
 
 async function getPopular() {
     const res = await fetch(
-        'https://encouraging-bat-sun-hat.cyclic.app/api/movie/lk21/popular'
+        'https://encouraging-bat-sun-hat.cyclic.app/api/movie/lk21/popular', { next: { revalidate: 43200 } }
     )
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary

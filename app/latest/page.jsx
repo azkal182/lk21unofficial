@@ -29,7 +29,7 @@ export default Latest
 
 async function getLatest() {
     const res = await fetch(
-        'https://encouraging-bat-sun-hat.cyclic.app/api/movie/lk21/latest'
+        'https://encouraging-bat-sun-hat.cyclic.app/api/movie/lk21/latest', { next: { revalidate: 43200 } }
     )
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
