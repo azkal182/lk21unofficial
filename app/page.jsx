@@ -1,13 +1,18 @@
+"use client"
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from './page.module.css'
 import Main from '../components/Main'
 import Row from '../components/Row'
 import requests from '../requests'
+import {useEffect} from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  useEffect(() => {
+    window.location.replace('https://azkalcinema.vercel.app')
+  }, [])
     return (
         <>
             {/*
